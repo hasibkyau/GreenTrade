@@ -15,7 +15,7 @@
 <body>
 
 <?php
-    include("nav.php ");
+    include("nav.php");
 ?>
 
     <div id="giftCtrl">
@@ -77,7 +77,7 @@
     <script src="js/custom.js"></script>
 
     <?php
-    include("footer.php ");
+    include("footer.php");
     ?>
 </body>
 

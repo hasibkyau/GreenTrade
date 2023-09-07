@@ -1,6 +1,5 @@
 <?php
-$conn = mysqli_connect('localhost', 'root', '', 'project');
-
+  require_once("connect.php");
 // session_start();
 if (!isset($_SESSION['ID'])) {
     session_start();
@@ -72,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <?php
-    include("nav.php ");
+    include("nav.php");
     ?>
     <div class="container">
     <div id="title" class=" border text-center text-success mt-30">
@@ -198,7 +197,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
     <?php
-    include("footer.php ");
+    include("footer.php");
     ?>
 </body>
 

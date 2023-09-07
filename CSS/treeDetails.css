@@ -51,25 +51,7 @@ html {
   }
   */
   /* --- Partner ---*/
-  #Partner{
-    width: 130px;
-    height: 40px;
-    position: relative;
-    left: 80px;
-    top: 5px;
-    border: 1px solid rgb(60, 13, 13);
-    border-radius: 25px;
-    background-color: rgb(116, 12, 12);
-  }
-  #Partner a{
-    position: relative;
-    bottom: 7px;
-    right: 10px;
-    color: white !important;
-  }
-  #Partner a:hover {
-    color: green !important;
-  }
+
   #loginBtn{
     width: 100px;
     height: 40px;

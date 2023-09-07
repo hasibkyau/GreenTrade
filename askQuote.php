@@ -14,7 +14,7 @@
 
 <body>
 <?php
-    include("nav.php ");
+    include("nav.php");
   ?>
 
     <section id="askAndQuote">

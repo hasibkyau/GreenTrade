@@ -1,6 +1,5 @@
 <?php
-$conn = mysqli_connect('localhost', 'root', '', 'project');
-
+  require_once("connect.php");
 // session_start();
 if (!isset($_SESSION['ID'])) {
     session_start();
@@ -44,7 +43,7 @@ if (mysqli_num_rows($result) > 0) {
 
 <body>
 <?php
-    include("nav.php ");
+    include("nav.php");
     ?>
 
     <div class="container">
@@ -104,7 +103,7 @@ if (mysqli_num_rows($result) > 0) {
     </div>
 
     <?php
-    include("footer.php ");
+    include("footer.php");
     ?>
 </body>
 

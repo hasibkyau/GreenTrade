@@ -8,17 +8,10 @@
     <title>Registration Form</title>
     <link rel="stylesheet" href="CSS/registration.css">
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 </head>
 
@@ -26,7 +19,7 @@
 
     <?php
 
-    $conn = mysqli_connect('localhost', 'root', '', 'project');
+    require_once("connect.php");
     // Check connection
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
@@ -34,40 +27,40 @@
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-         // Prepare and bind SQL statement to check if email exists
-         $validation = $conn->prepare("SELECT * FROM users WHERE EmailAddress = ?");
-         $validation->bind_param("s", $emailAddress);
- 
-         // Set parameters and execute statement
-         $emailAddress = $_POST['emailAddress'];
- 
-         $validation->execute();
-         $result = $validation->get_result();
+        // Prepare and bind SQL statement to check if email exists
+        $validation = $conn->prepare("SELECT * FROM users WHERE EmailAddress = ?");
+        $validation->bind_param("s", $emailAddress);
 
-         if ($result->num_rows > 0) {
+        // Set parameters and execute statement
+        $emailAddress = $_POST['emailAddress'];
+
+        $validation->execute();
+        $result = $validation->get_result();
+
+        if ($result->num_rows > 0) {
             echo "An account with this email already exists.";
         } else {
 
-        // Prepare and bind SQL statement
-        $stmt = $conn->prepare("INSERT INTO users (Date, FirstName, LastName, EmailAddress, PhoneNumber, Gender, AccountType, Password, UserAddress) VALUES (NOW(), ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssssss", $firstName, $lastName, $emailAddress, $phoneNumber, $gender, $accountType, $password, $userAddress);
+            // Prepare and bind SQL statement
+            $stmt = $conn->prepare("INSERT INTO users (Date, FirstName, LastName, EmailAddress, PhoneNumber, Gender, AccountType, Password, UserAddress) VALUES (NOW(), ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("ssssssss", $firstName, $lastName, $emailAddress, $phoneNumber, $gender, $accountType, $password, $userAddress);
 
-        // Set parameters and execute statement
-        $firstName = $_POST['firstName'];
-        $lastName = $_POST['lastName'];
-        $emailAddress = $_POST['emailAddress'];
-        $phoneNumber = $_POST['phoneNumber'];
-        $gender = $_POST['gender'];
-        $accountType = $_POST['accountType'];
-        $password = $_POST['password'];
-        $userAddress = $_POST['userAddress'];
+            // Set parameters and execute statement
+            $firstName = $_POST['firstName'];
+            $lastName = $_POST['lastName'];
+            $emailAddress = $_POST['emailAddress'];
+            $phoneNumber = $_POST['phoneNumber'];
+            $gender = $_POST['gender'];
+            $accountType = $_POST['accountType'];
+            $password = $_POST['password'];
+            $userAddress = $_POST['userAddress'];
 
-        $stmt->execute();
+            $stmt->execute();
 
-        echo "User registration successful.";
-        // Redirect to home page
-        header("Location: login.php");
-        exit();
+            echo "User registration successful.";
+            // Redirect to home page
+            header("Location: login.php");
+            exit();
         }
     }
 

@@ -2,7 +2,6 @@
 require_once("connect.php");
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +9,7 @@ require_once("connect.php");
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Agriculture</title>
+    <title>GreenTrade</title>
 
     <link rel="stylesheet" href="CSS/index.css">
 
@@ -25,111 +24,21 @@ require_once("connect.php");
     include("nav.php");
     ?>
 
-    <?php
-
-    $categories = array('Fruit', 'Flower', 'Vegetables', 'Outdoor', 'Indoor');
-
-    // $category = 'all';
-    // Get the selected category from the request parameters
-    if (isset($_GET['category'])) {
-        $category = mysqli_real_escape_string($conn, $_GET['category']);
-        if (!in_array($category, $categories)) {
-            $category = '';
-        }
-    } else {
-        $category = '';
-    }
-
-    // Build the SQL query
-    if ($category) {
-        // echo $category;
-        $sql = "SELECT * FROM products WHERE product_status ='approved' AND category = '$category'";
-    } else {
-        $sql = "SELECT * FROM products WHERE product_status ='approved'";
-    }
-    $sql .= " ORDER BY name";
-
-    // Execute the query and get the results
-   
-
-
-    if (isset($_GET['search'])) {
-        $search =  $_GET['search'];
-        // echo $search;
-        $sql = "SELECT * FROM products WHERE product_status ='approved' AND name LIKE '%$search%' OR description LIKE '%$search%'";
-
-    } 
-    $result = mysqli_query($conn, $sql);
-
-    if (isset($_GET['AddToCart'])){
-
-        if(isset($_SESSION['ID'])){
-            $product_id = $_GET['AddToCart'];
-            $customer_id = $_SESSION['ID'];
-            // echo $customer_id;
-            $query = "INSERT INTO cart (customer_id, product_id) VALUES ($customer_id, $product_id);";
-            mysqli_query($conn, $query);
-        }
-    }
-    ?>
-
 
     <section id="controllFiltering">
+        <div class="">
 
-    <div class="bg-image d-flex justify-content-center align-items-center" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(10, 5, 0, 0.45)),
+            <div class="bg-image d-flex justify-content-center align-items-center" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(10, 5, 0, 0.45)),
     url('Resources/Images/bg4.jpg');height: 60vh; background-size: cover;">
-                <div class="container">
-                    <h1 class=" sectionTitle text-center text-white">Choose and plant your trees</h1>
+            <div class="container">    
+            <h1 class=" sectionTitle text-center text-white">Choose and plant your trees</h1>
 
-                    <h3 class="text-white text center">Have you ever thought about planting a tree? It is a simple gesture, which has a great impact. It will benefit the environment and people, while also becoming an original gift for the ones you love. Plant a tree, let's green the planet!</h3>
+                <h3 class="text-white text center">Have you ever thought about planting a tree? It is a simple gesture, which has a great impact. It will benefit the environment and people, while also becoming an original gift for the ones you love. Plant a tree, let's green the planet!</h3>
                 </div>
             </div>
 
 
-        <div class="container">
             <br><br>
-            <!---->
-
-
-            <div class="row">
-                <div class="col-6">
-
-
-                    
-                    <form action="" method="get">
-                        <div class="input-group">
-                        <label class="form-label" for="form1"></label>
-                            <select class="form-control" name="category" id="category">
-                                <option value="" selected>All</option>
-                                <?php foreach ($categories as $cat) : ?>
-                                    <option value="<?php echo $cat; ?>" <?php echo ($category == $cat) ? 'selected' : ''; ?>><?php echo ucfirst($cat); ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                            <input class=" btn-success" type="submit" value="Filter">
-                        </div>
-
-                    </form>
-
-                </div>
-
-                <div class="col-6">
-                    <form action="" method="get">
-                        <div class="input-group">
-                            <label class="form-label d-flex" for="form1"></label>
-                            <input type="search" name="search" id="search" class="form-control" />
-                            <!-- <input class=" btn-success" type="submit" value="Filter"> -->
-
-                            <button type="submit" value="search" type="button" class="btn">
-                                <!-- <i class="fas fa-search">Search</i> -->
-                                <img src="Resources/Images/search.png" alt="search" class="img-fluid search" data-toggle="modal" data-target="#exampleModalCenter">
-                            </button>
-
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-
 
         </div>
         </div>
@@ -138,11 +47,26 @@ require_once("connect.php");
     <section id="headLine">
         <div class="container">
             <div class="row">
+                <h4 class="text-center text">
+                    Categories of trees:
+                </h4>
+                <div class="form-group">
+                    <select class="form-control" id="categories">
+                        <option selected>Filter</option>
+                        <option>Fruit Plant</option>
+                        <option>Rooftop Plant</option>
+                        <option>Indoor Plant</option>
+                        <option>Outdoor Plant</option>
+                        <option>Flower Plant</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
                 <!---->
                 <?php
                 // retrieve all products from the database
-                // $sql = "SELECT * FROM products WHERE product_status = 'approved'";
-                // $result = mysqli_query($conn, $sql);
+                $sql = "SELECT * FROM products";
+                $result = mysqli_query($conn, $sql);
                 // session_start();
 
                 // check if any products were found
@@ -166,7 +90,7 @@ require_once("connect.php");
                         echo "<img class='card-img-top'  src='" . $src . "' alt='" . $row['name'] . "' width='200' height='200'>";
                         echo "<div class='card-body'>";
                         echo "<div class='card-title'>";
-                        echo "<h2  class='fruit'>" . $row['name'] . "</h2>";
+                        echo "<h2  class='font-weight-bold text-dark'>" . $row['name'] . "</h2>";
                         echo "</div>";
                         // echo "<p>" . $row['description'] . "</p>";
                         echo "<p class='card-text'>" . $cost . "</p>";
@@ -191,29 +115,13 @@ require_once("connect.php");
                         echo "<p class='card-text'>" . $cost . "</p>";
                         echo "</div>";
 
-                        echo " <form class='form-group mx-auto'  method='get'>";
-                        if(isset($_SESSION['ID'])){
-                            echo "   <button name='AddToCart' type='submit' value='". $row['id']."' type='button' class='btn btn-secondary'>Add to Cart</button>";
-                            echo " <a class='btn btn-primary' href='gift.php?id=" . $row['id'] . "'> Gift <a/>";
-                            echo "</form>";
-                        }
-
-
                         echo "<div class='modal-footer'>";
 
                         echo " <a class='btn btn-primary' href='OrderNow.php?id=" . $row['id'] . "'> Order Now <a/>";
-                        
-                        // echo " <a class='btn btn-secondary' href='MyCart.php?id=" . $row['id'] . "'> Add to Cart <a/>";
-
-
-
-
+                        echo " <a class='btn btn-secondary' href='MyCart.php?id=" . $row['id'] . "'> Add to Cart <a/>";
                         echo "<button type='button' class='btn btn-danger' data-dismiss='modal'>Close</button>";
 
-
-
                         echo "</div>";
-
                         echo "</div>";
                         echo "</div>";
                         echo "</div>";
@@ -235,14 +143,13 @@ require_once("connect.php");
 
     <div class="bg-image d-flex justify-content-center align-items-center" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(10, 5, 0, 0.45)),
     url('Resources/Images/bg5.jpg');height: 60vh;">
-        <div class="container">
+            <div class="container">    
             <h2 class=" sectionTitle text-center text-white">Have you ever thought about planting trees every month?</h2>
 
-            <h3 class="text-white text center">the profile that’s the best fit for you and start planting trees every month.
+                <h3 class="text-white text center">the profile that’s the best fit for you and start planting trees every month.
                 Whether you’re a Rookie, Hero or Master, you’ll find the right one for you.</h3>
-        </div>
-    </div>
-
+                </div>
+            </div>
 
     <?php
     include("footer.php");

@@ -25,13 +25,9 @@
 
     <?php
 
-    $conn = mysqli_connect('localhost', 'root', '', 'project');
 
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
+    require_once("connect.php");
+    
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Prepare and bind SQL statement
         $stmt = $conn->prepare("SELECT * FROM users WHERE EmailAddress = ? AND Password = ?");

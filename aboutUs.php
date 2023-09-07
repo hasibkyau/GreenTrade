@@ -14,7 +14,7 @@
 
 <body>
 <?php
-    include("nav.php ");
+    include("nav.php");
 ?>
 
     <section id="ourMission">
@@ -72,7 +72,7 @@
     <script src="js/custom.js"></script>
 
     <?php
-    include("footer.php ");
+    include("footer.php");
     ?>
 </body>
 

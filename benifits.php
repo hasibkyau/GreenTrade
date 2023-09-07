@@ -22,7 +22,7 @@
 </head>
 <body>
 <?php
-    include("nav.php ");
+    include("nav.php");
     ?>
 
     <section id="searchModal">
@@ -106,7 +106,7 @@
 </section>
 
 <?php
-    include("footer.php ");
+    include("footer.php");
     ?>
 </body>
 </html>

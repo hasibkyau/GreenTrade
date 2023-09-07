@@ -2,7 +2,7 @@
   $hostname = "localhost";
   $username = "root";
   $password = "";
-  $dbname = "greentrade";
+  $dbname = "green_trade";
 
   $conn = mysqli_connect($hostname, $username, $password, $dbname);
   

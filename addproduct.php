@@ -24,7 +24,8 @@
 
 <body>
     <?php
-    include("nav.php ");
+      require_once("connect.php");
+    include("nav.php");
     ?>
 
 
@@ -134,7 +135,7 @@
 </section>
 
 <?php
-    include("footer.php ");
+    include("footer.php");
     ?>
 
 </body>

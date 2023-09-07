@@ -34,10 +34,11 @@ if (!isset($_SESSION['ID'])) {
 </head>
 
 <body>
+    
 
     <header id="header" class="sticky-top">
         <div class="container-fluid px-md-0">
-        <h2 style="font-weight:bold; font-size:30px !important;">PLANT A TREE</h2>
+
             <div class="mainNav">
                 <nav class="navbar navbar-expand-lg">
                     <a class="navbar-brand" href="#">
@@ -64,9 +65,9 @@ if (!isset($_SESSION['ID'])) {
                             </div>
                             </div>
                             -->
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a class="nav-link" href="gift.php">Gift</a>
-                            </li>
+                            </li> -->
                             <li class="nav-item">
                                 <a class="nav-link" href="benifits.php">Benifits</a>
                             </li>
@@ -84,24 +85,41 @@ if (!isset($_SESSION['ID'])) {
                             <?php
                             // session_start();
                             if (isset($_SESSION['login'])){
-                                echo "<li class='nav-item'>";
-                                echo "<a class='nav-link' href='myAccount.php'>" . 'My Account' . "</a>";
-                                echo "</li>";
+
+                                if ($_SESSION['ID'] == 1){
+                                    echo "<li class='nav-item'>";
+                                    echo "<a class='nav-link' href='DashBoard.php'>" . 'DashBoard' . "</a>";
+                                    echo "</li>";
+
+                                    echo "<li class='nav-item' id='Partner'>";
+                                    echo "<a class='nav-link' href='partner.php'>" . 'Partner' . "</a>";
+                                    echo "</li>";
+                                    }
+                                else{
+                                    echo "<li class='nav-item'>";
+                                    echo "<a class='nav-link' href='myAccount.php'>" . 'My Account' . "</a>";
+                                    echo "</li>";
+
+                                    echo "<li class='nav-item'>";
+                                    echo "<a class='nav-link' href='MyOrders.php'>" . 'My Orders' . "</a>";
+                                    echo "</li>";
+                                    }
+                                    
                             }
                             ?>
                             <!-- <li class="nav-item">
                                 <a class="nav-link" href="myAccount.php">My Account</a>
                             </li> -->
-                            <li id="Partner" class="nav-item">
+                            <!-- <li id="Partner" class="nav-item">
                                 <a class="nav-link" href="partner.php">Partner</a>
-                            </li>
+                            </li> -->
 
                         </ul>
                         <form class="form-inline my-2  my-lg-0">
 
-                            <img src="Resources/Images/search.png" alt="search" class="img-fluid search"
+                            <!-- <img src="Resources/Images/search.png" alt="search" class="img-fluid search"
                                 data-toggle="modal" data-target="#exampleModalCenter">
-                            <!-- <a class="nav-link" id="loginBtn" href="login.php">Log In</a> -->
+                            <a class="nav-link" id="loginBtn" href="login.php">Log In</a> -->
                             <?php
                             if (isset($_SESSION['login'])){
                                 echo "<a class='nav-link' id='loginBtn'  href='logout.php'>" . 'Logout' . "</a>";
